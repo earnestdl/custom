@@ -9,7 +9,8 @@ jobs:
       id: default
       type: bash
       state: "variables.json"
-      
+      regions: '["west"]'
+
   deploy_dev:
     needs: build_default
     uses: earnestdl/templates/.github/workflows/deploy.yml@main
