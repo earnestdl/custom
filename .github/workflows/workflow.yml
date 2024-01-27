@@ -17,6 +17,7 @@ jobs:
       id: dev
       type: bash
       env: dev
+      regions: '["east", "west"]'
 
   deploy_qa:
     needs: deploy_dev
