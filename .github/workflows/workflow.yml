@@ -4,6 +4,7 @@ on: [push,workflow_dispatch]
 
 jobs:
   build_default:
+    name: Build default
     uses: earnestdl/templates/.github/workflows/build.yml@main
     with: 
       id: default
@@ -11,6 +12,7 @@ jobs:
       state: "variables.json"
 
   deploy_dev:
+    name: Deploy dev
     needs: build_default
     uses: earnestdl/templates/.github/workflows/deploy.yml@main
     with: 
@@ -19,6 +21,7 @@ jobs:
       type: bash
 
   deploy_qa:
+    name: Deploy qa
     needs: deploy_dev
     uses: earnestdl/templates/.github/workflows/deploy.yml@main
     with: 
@@ -27,6 +30,7 @@ jobs:
       type: bash
 
   deploy_stress:
+    name: Deploy stress
     needs: deploy_qa
     uses: earnestdl/templates/.github/workflows/deploy.yml@main
     with: 
@@ -35,6 +39,7 @@ jobs:
       type: bash
 
   deploy_prod:
+    name: Deploy prod
     needs: deploy_stress
     uses: earnestdl/templates/.github/workflows/deploy.yml@main
     with: 
