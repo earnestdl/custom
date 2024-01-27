@@ -38,9 +38,17 @@ jobs:
       env: stress
       type: bash
 
+  deploy_qa_signoff:
+    name: QA-Signoff
+    needs: deploy_stress
+    uses: earnestdl/templates/.github/workflows/deploy.yml@main
+      id: qa_signoff
+      env: qa
+      type: qa-signoff
+
   deploy_prod:
     name: Deploy prod
-    needs: deploy_stress
+    needs: deploy_qa_signoff
     uses: earnestdl/templates/.github/workflows/deploy.yml@main
     with: 
       id: prod
