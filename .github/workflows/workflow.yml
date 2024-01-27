@@ -1,0 +1,43 @@
+name: Pipeline
+
+on: [push,workflow_dispatch]
+
+jobs:
+  build_default:
+    uses: earnestdl/templates/.github/workflows/build.yml@main
+    with: 
+      id: default
+      type: bash
+      state: "variables.json"
+      
+  deploy_dev:
+    needs: build_default
+    uses: earnestdl/templates/.github/workflows/deploy.yml@main
+    with: 
+      id: dev
+      type: bash
+      env: dev
+
+  deploy_qa:
+    needs: deploy_dev
+    uses: earnestdl/templates/.github/workflows/deploy.yml@main
+    with: 
+      id: qa
+      type: bash
+      env: qa
+
+  deploy_stress:
+    needs: deploy_qa
+    uses: earnestdl/templates/.github/workflows/deploy.yml@main
+    with: 
+      id: stress
+      type: bash
+      env: stress
+
+  deploy_prod:
+    needs: deploy_stress
+    uses: earnestdl/templates/.github/workflows/deploy.yml@main
+    with: 
+      id: prod
+      type: bash
+      env: prod
