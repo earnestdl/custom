@@ -9,7 +9,6 @@ jobs:
       id: default
       type: bash
       state: "variables.json"
-      regions: '["west"]'
 
   deploy_dev:
     needs: build_default
@@ -18,6 +17,7 @@ jobs:
       id: dev
       type: bash
       env: dev
+      regions: '["west"]'
 
   deploy_qa:
     needs: deploy_dev
